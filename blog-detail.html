@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="detailPageDocTitle">Triển khai AI Nội bộ (On-Premise LLM): Lời giải Bảo mật Dữ liệu cho Tập đoàn &amp; Ngân hàng — Navatek</title>
+  <meta
+    name="description"
+    content="Phân tích chuyên sâu kiến trúc AI nội bộ (On-Premise LLM, RAG, OCR), máy trạm mô-đun OCuLink 64Gbps, PC công nghiệp Fanless và bài toán ngân sách CAPEX vs HaaS cho CIO."
+  />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <link rel="preload" as="font" href="fonts/Inter-Bold.woff2" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" as="font" href="fonts/Inter-SemiBold.woff2" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" as="font" href="fonts/Inter-Medium.woff2" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" as="font" href="fonts/Inter-Regular.woff2" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" as="font" href="fonts/HelveticaNeue-Medium.woff2" type="font/woff2" crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/style.css?v=20261103-mega1" />
+</head>
+<body>
+  <!-- Backdrop for Desktop Mega-Menu -->
+  <div id="navBackdrop" class="nav-backdrop" aria-hidden="true"></div>
+
+  <!-- Top Deep-Navy Enterprise Utility Bar -->
+  <div class="top-utility-strip">
+    <div class="top-utility-inner">
+      <span>Hồ sơ CO/CQ Chính ngạch &amp; Hóa đơn VAT 100%</span>
+      <div class="top-utility-links">
+        <span>Phòng Lab ESD • Ứng cứu SLA &lt; 4 Giờ</span>
+        <a href="tel:1900636809">Hotline B2B: 1900 636 809</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       HEADER: Crisp Enterprise Navigation (Synchronized with index.html & blog.html)
+       ===================================================================== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="index.html" class="brand-logo" aria-label="Navatek Trang chủ">
+          <img src="logos/navatek-logo.png" alt="Navatek" class="brand-logo-img" />
+        </a>
+
+        <nav class="main-nav" aria-label="Điều hướng chính">
+          <ul class="nav-list">
+            <li>
+              <button
+                type="button"
+                class="nav-link"
+                data-dropdown="megaInfra"
+                aria-expanded="false"
+              >
+                <span>Hệ sinh thái Hạ tầng</span>
+                <svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </li>
+            <li><a href="index.html#quy-trinh-hop-tac" class="nav-link"><span>Hiệu năng &amp; Quy trình</span></a></li>
+            <li><a href="index.html#giai-phap-ai" class="nav-link"><span>AI Nội bộ</span></a></li>
+            <li><a href="index.html#du-an-tieu-bieu" class="nav-link"><span>Dự án</span></a></li>
+            <li><a href="blog.html" class="nav-link is-current"><span>Góc nhìn</span></a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="header-right">
+        <button type="button" id="headerCartBtn" class="header-cart-btn" data-open-rfq="header-cart">
+          <span>Báo giá</span>
+          <span id="headerCartCount" class="cart-count-pill">0</span>
+        </button>
+
+        <button type="button" class="header-btn-quote" data-open-rfq="header-cta">
+          Nhận tư vấn
+        </button>
+
+        <button type="button" id="mobileMenuOpen" class="mobile-toggle" aria-label="Mở menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7H20M4 12H20M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Structured B2B 3-Column Mega-Menu -->
+    <div id="megaInfra" class="mega-dropdown" role="region" aria-label="Hệ sinh thái Hạ tầng CNTT">
+      <div class="mega-products-grid">
+        <div class="mega-col">
+          <div class="mega-col-head">
+            <span class="mega-col-num">01</span>
+            <span class="mega-col-title">Máy trạm AI &amp; Thiết bị Văn phòng</span>
+          </div>
+          <div class="mega-items">
+            <button type="button" class="mega-item-btn" data-open-hw="modular-ai-workstation">
+              <span class="menu-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="4" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.9" />
+                  <path d="M7 20h10M12 16v4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+                </svg>
+              </span>
+              <span class="mega-item-copy">
+                <span class="mega-item-title">Cụm Máy trạm AI &amp; eGPU 64Gbps</span>
+                <span class="mega-item-desc">Mini PC + OCuLink + GPU RTX 24–48GB</span>
+              </span>
+              <span class="mega-item-arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </button>
+
+            <button type="button" class="mega-item-btn" data-open-hw="office-nuc-fleet">
+              <span class="menu-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.9" />
+                  <path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+                </svg>
+              </span>
+              <span class="mega-item-copy">
+                <span class="mega-item-title">Mini PC ASUS NUC Chính ngạch</span>
+                <span class="mega-item-desc">CO/CQ 100% • Bảo hành 36 Tháng</span>
+              </span>
+              <span class="mega-item-arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </button>
+
+            <button type="button" class="mega-item-btn" data-open-hw="turnkey-ai-box">
+              <span class="menu-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.9" />
+                  <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.9" />
+                </svg>
+              </span>
+              <span class="mega-item-copy">
+                <span class="mega-item-title">Turnkey AI Box Phòng ban</span>
+                <span class="mega-item-desc">Local LLM Tiếng Việt • 100% Mạng LAN</span>
+              </span>
+              <span class="mega-item-arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="mega-col">
+          <div class="mega-col-head">
+            <span class="mega-col-num">02</span>
+            <span class="mega-col-title">Máy chủ Chi nhánh &amp; Công nghiệp</span>
+          </div>
+          <div class="mega-items">
+            <button type="button" class="mega-item-btn" data-open-hw="microserver-nas-gateway">
+              <span class="menu-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="4" width="18" height="6" rx="1.5" stroke="currentColor" stroke-width="1.9" />
+                  <rect x="3" y="14" width="18" height="6" rx="1.5" stroke="currentColor" stroke-width="1.9" />
+                </svg>
+              </span>
+              <span class="mega-item-copy">
+                <span class="mega-item-title">Micro-Server &amp; NAS All-Flash 10G</span>
+                <span class="mega-item-desc">Proxmox VE • Tường lửa OPNsense</span>
+              </span>
+              <span class="mega-item-arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </button>
+
+            <button type="button" class="mega-item-btn" data-open-hw="fanless-industrial-kiosk">
+              <span class="menu-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.9" />
+                  <path d="M8 5v14M12 5v14M16 5v14" stroke="currentColor" stroke-width="1.6" />
+                </svg>
+              </span>
+              <span class="mega-item-copy">
+                <span class="mega-item-title">Máy tính Công nghiệp Fanless</span>
+                <span class="mega-item-desc">Không quạt • RS232/485 • 4× Màn 4K</span>
+              </span>
+              <span class="mega-item-arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </button>
+
+            <button type="button" class="mega-item-btn" data-open-hw="oculink-egpu-dock">
+              <span class="menu-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="1.9" />
+                  <path d="M4 12h3M17 12h3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+                </svg>
+              </span>
+              <span class="mega-item-copy">
+                <span class="mega-item-title">Trạm Mở rộng eGPU OCuLink</span>
+                <span class="mega-item-desc">Khung nhôm CNC • PCIe 4.0 x4 thực</span>
+              </span>
+              <span class="mega-item-arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="mega-col">
+          <div class="mega-col-head">
+            <span class="mega-col-num">03</span>
+            <span class="mega-col-title">Nâng cấp, Thuê HaaS &amp; SLA</span>
+          </div>
+          <div class="mega-items">
+            <button type="button" class="mega-item-btn" data-open-hw="wholesale-components-thermal">
+              <span class="menu-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <rect x="6" y="6" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.9" />
+                  <path d="M9 3v3M15 3v3M9 18v3M15 18v3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+                </svg>
+              </span>
+              <span class="mega-item-copy">
+                <span class="mega-item-title">RAM DDR5, NVMe &amp; PTM7950</span>
+                <span class="mega-item-desc">Đồng nhất mã Part • Hạ 10°C nhiệt tải</span>
+              </span>
+              <span class="mega-item-arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </button>
+
+            <button type="button" class="mega-item-btn" data-open-hw="haas-hardware-rental">
+              <span class="menu-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+                </svg>
+              </span>
+              <span class="mega-item-copy">
+                <span class="mega-item-title">Cho thuê Phần cứng (HaaS)</span>
+                <span class="mega-item-desc">100% OPEX • Hợp đồng Quý / Năm</span>
+              </span>
+              <span class="mega-item-arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </button>
+
+            <button type="button" class="mega-item-btn" data-open-hw="sla-maintenance-loaner">
+              <span class="menu-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" />
+                </svg>
+              </span>
+              <span class="mega-item-copy">
+                <span class="mega-item-title">Bảo trì ESD &amp; Máy mượn SLA &lt; 4h</span>
+                <span class="mega-item-desc">Kho dự phòng Loaner Pool 24/7</span>
+              </span>
+              <span class="mega-item-arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mega-dropdown-foot">
+        <div class="mega-foot-info">
+          <span class="mega-foot-badge">CO/CQ Chính ngạch 100%</span>
+          <span>Hỗ trợ mượn thiết bị PoC 07 ngày tận nơi • Bảo hành SLA &lt; 4h toàn quốc</span>
+        </div>
+        <div class="mega-foot-actions">
+          <a href="index.html#giai-phap-ha-tang" class="mega-foot-link">Xem toàn bộ hệ sinh thái →</a>
+          <button
+            type="button"
+            class="mega-foot-cta"
+            data-open-rfq="mega-poc"
+            data-rfq-chip="Đăng ký Mượn máy PoC"
+          >
+            Đăng ký mượn PoC
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-progress-track" aria-hidden="true">
+      <div id="scrollProgressBar" class="scroll-progress-bar"></div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobileDrawer" class="mobile-drawer" aria-hidden="true">
+    <div class="mobile-drawer-backdrop" data-close-drawer></div>
+    <div class="mobile-drawer-panel">
+      <div class="mobile-drawer-head">
+        <img src="logos/navatek-logo.png" alt="Navatek" class="brand-logo-img brand-logo-drawer" />
+        <button type="button" id="mobileMenuClose" class="mobile-close-btn" aria-label="Đóng menu">✕</button>
+      </div>
+      <div class="mobile-nav-links">
+        <a href="index.html#giai-phap-ha-tang" data-close-drawer>Hệ sinh thái Hạ tầng</a>
+        <a href="index.html#quy-trinh-hop-tac" data-close-drawer>Hiệu năng &amp; Quy trình</a>
+        <a href="index.html#giai-phap-ai" data-close-drawer>AI Nội bộ</a>
+        <a href="index.html#du-an-tieu-bieu" data-close-drawer>Dự án Thực tế</a>
+        <a href="blog.html" data-close-drawer>Góc nhìn Công nghệ</a>
+        <button type="button" class="header-btn-quote" data-open-rfq="mobile-drawer" data-close-drawer>
+          Nhận tư vấn &amp; Báo giá
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+    <!-- ===================================================================
+         1. FPT IS STYLE BREADCRUMB BAND (.bg-blue.page__breadcrumb)
+         =================================================================== -->
+    <section class="fis-detail-breadcrumb" aria-label="Điều hướng phân cấp">
+      <div class="container">
+        <nav class="fis-breadcrumb">
+          <a href="index.html">Trang chủ</a>
+          <span class="sep">›</span>
+          <a href="blog.html">Góc nhìn công nghệ</a>
+          <span class="sep">›</span>
+          <span id="detailBreadcrumbCurrent" class="current">AI Nội bộ &amp; LLM</span>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         2. FPT IS STYLE 2-COLUMN ARTICLE DETAIL (.detail__page: 8/4 Split)
+         =================================================================== -->
+    <section class="fis-detail-page">
+      <div class="container">
+        <div class="fis-detail-grid">
+          <!-- LEFT COLUMN: Main Article Content (.detail__page-content) -->
+          <article class="fis-detail-main">
+            <!-- Category Tag Pill (.page__content-tags) -->
+            <div id="detailTopTags" class="fis-detail-tags">
+              <a href="blog.html" id="detailCategoryTag" class="fis-detail-tag-pill">Góc nhìn Chuyên gia • AI Doanh nghiệp</a>
+            </div>
+
+            <!-- H1 Title (.page-title) -->
+            <h1 id="detailArticleTitle" class="fis-detail-title">
+              Triển khai AI Nội bộ (On-Premise LLM): Lời giải Bảo mật Dữ liệu cho Tập đoàn &amp; Ngân hàng
+            </h1>
+
+            <!-- Author / Date & Social Share Bar (.post__author-info) -->
+            <div class="fis-detail-meta-bar">
+              <p class="fis-detail-date">
+                <span id="detailArticleDate">Ngày 28/10/2026</span>
+                <span>•</span>
+                <span id="detailArticleMeta" class="read-time">Bản tin Kiến trúc CNTT • 6 phút đọc</span>
+              </p>
+
+              <div class="fis-detail-social">
+                <span>Chia sẻ:</span>
+                <div class="fis-share-list">
+                  <a
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://navatek.vn/blog-detail.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="fis-share-btn is-fb"
+                    aria-label="Chia sẻ lên Facebook"
+                  >
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M15.12 5.32H17V2.14A26.11 26.11 0 0 0 14.26 2c-2.72 0-4.58 1.66-4.58 4.7v2.62H6.61v3.56h3.07V22h3.68v-9.12h3.06l.46-3.56h-3.52V6.65c0-1.05.29-1.73 1.76-1.33Z"/>
+                    </svg>
+                  </a>
+                  <a
+                    href="https://twitter.com/intent/tweet?url=https://navatek.vn/blog-detail.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="fis-share-btn is-tw"
+                    aria-label="Chia sẻ lên X / Twitter"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/sharing/share-offsite/?url=https://navatek.vn/blog-detail.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="fis-share-btn is-in"
+                    aria-label="Chia sẻ lên LinkedIn"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z"/>
+                    </svg>
+                  </a>
+                  <button
+                    type="button"
+                    class="fis-share-btn is-copy"
+                    data-copy-blog-link
+                    title="Sao chép liên kết bài viết"
+                    aria-label="Sao chép liên kết bài viết"
+                  >
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Collapsible Table of Contents Box (#ftwp-container-outer) -->
+            <nav id="fisTocBox" class="fis-toc-box" aria-label="Mục lục bài viết">
+              <div id="fisTocToggleHeader" class="fis-toc-header" role="button" tabindex="0" aria-expanded="true">
+                <span class="fis-toc-title-wrap">
+                  <span class="fis-toc-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  <span>Mục Lục</span>
+                </span>
+                <span id="fisTocToggleLabel" class="fis-toc-toggle">Thu gọn ▴</span>
+              </div>
+              <ol id="detailTocList" class="fis-toc-list">
+                <li class="fis-toc-item">
+                  <a href="#sec-1">
+                    <span class="toc-num">1.</span>
+                    <span>Rào cản Bảo mật khi Doanh nghiệp Sử dụng Public Cloud AI</span>
+                  </a>
+                </li>
+                <li class="fis-toc-item">
+                  <a href="#sec-2">
+                    <span class="toc-num">2.</span>
+                    <span>Sự Trỗi dậy của Thiết bị Turnkey AI Box Vận hành 100% Mạng LAN</span>
+                  </a>
+                </li>
+                <li class="fis-toc-item">
+                  <a href="#sec-3">
+                    <span class="toc-num">3.</span>
+                    <span>Khuyến nghị Lộ trình 3 Bước cho Giám đốc CNTT</span>
+                  </a>
+                </li>
+                <li class="fis-toc-item">
+                  <a href="#sec-4">
+                    <span class="toc-num">4.</span>
+                    <span>Bảng Đối chiếu Kiến trúc &amp; Tiêu chuẩn Nghiệm thu B2B</span>
+                  </a>
+                </li>
+              </ol>
+            </nav>
+
+            <!-- Editorial Article Body (.desc.ws-sgct) -->
+            <div class="fis-article-body">
+              <blockquote id="detailLeadQuote" class="fis-article-lead">
+                Phân tích kiến trúc triển khai mô hình ngôn ngữ lớn (Local LLM) và trợ lý tra cứu tài liệu RAG / OCR vận hành độc lập 100% trong mạng nội bộ (Air-Gapped LAN), giúp các Tập đoàn, Ngân hàng và Nhà máy bảo vệ tuyệt đối bí mật dữ liệu đồng thời loại bỏ chi phí thuê bao theo đầu người dùng.
+              </blockquote>
+
+              <figure class="fis-article-cover">
+                <img
+                  id="detailCoverImg"
+                  src="images/blog-v7-onprem-ai.jpg"
+                  alt="Triển khai AI Nội bộ On-Premise LLM"
+                />
+                <figcaption id="detailCoverCaption" class="fis-article-caption">
+                  Minh họa kiến trúc phần cứng &amp; giải pháp AI nội bộ do Phòng Lab Giải pháp B2B Navatek chuẩn hóa.
+                </figcaption>
+              </figure>
+
+              <!-- 3-Metric Benchmark Strip -->
+              <div id="detailKpiGrid" class="fis-article-kpis">
+                <div class="fis-article-kpi-card">
+                  <div class="fis-article-kpi-num">100% LAN</div>
+                  <div class="fis-article-kpi-lbl">Vận hành độc lập không ra Internet</div>
+                </div>
+                <div class="fis-article-kpi-card">
+                  <div class="fis-article-kpi-num">0đ / User</div>
+                  <div class="fis-article-kpi-lbl">Không phí thuê bao tài khoản tháng</div>
+                </div>
+                <div class="fis-article-kpi-card">
+                  <div class="fis-article-kpi-num">14 Ngày</div>
+                  <div class="fis-article-kpi-lbl">Kiểm thử PoC thực tế tại đơn vị</div>
+                </div>
+              </div>
+
+              <!-- Dynamic Sections Container -->
+              <div id="detailSectionsContainer">
+                <section id="sec-1" class="fis-article-sec">
+                  <h2>1. Rào cản Bảo mật khi Doanh nghiệp Sử dụng Public Cloud AI</h2>
+                  <p>
+                    Khi nhân sự tải hợp đồng kinh tế, báo cáo tài chính, quy trình kỹ thuật hay hồ sơ khách hàng lên các công cụ AI đám mây công cộng, doanh nghiệp đối mặt trực tiếp với rủi ro rò rỉ bí mật kinh doanh và vi phạm quy định an toàn thông tin (ISO/IEC 27001, Nghị định bảo vệ dữ liệu).
+                  </p>
+                  <p>
+                    Đối với khối Tài chính – Ngân hàng, Năng lượng và Sản xuất công nghiệp, dữ liệu nghiệp vụ bắt buộc phải được lưu trữ và xử lý bên trong tường lửa nội bộ với cơ chế phân quyền truy cập (RBAC / Active Directory) chặt chẽ theo từng cấp phòng ban.
+                  </p>
+                </section>
+
+                <section id="sec-2" class="fis-article-sec">
+                  <h2>2. Sự Trỗi dậy của Thiết bị Turnkey AI Box Vận hành 100% Mạng LAN</h2>
+                  <p>
+                    Với thế hệ vi xử lý tích hợp NPU/GPU kiến trúc mới và các mô hình ngôn ngữ Tiếng Việt tối ưu hóa lượng tử (Quantized Local LLM), doanh nghiệp hiện nay không cần đầu tư phòng máy chủ hàng tỷ đồng vẫn có thể đặt một thiết bị AI Box nhỏ gọn ngay tại văn phòng để phục vụ 30–150 nhân sự đồng thời.
+                  </p>
+                  <ul>
+                    <li><strong>Bảo mật Air-Gapped LAN 100%:</strong> Toàn bộ quá trình nhúng вектор (Embedding), truy xuất văn bản (RAG) và suy luận (Inference) diễn ra ngay trên phần cứng tại chỗ, không gửi bất kỳ gói tin nào ra ngoài Internet.</li>
+                    <li><strong>Trích dẫn chính xác trang văn bản gốc:</strong> Mọi câu trả lời đều kèm theo liên kết tới đúng điều khoản, số trang PDF/Word của quy trình SOP nội bộ để nhân sự đối chiếu tức thì.</li>
+                    <li><strong>Không giới hạn số lượng tài khoản (0đ/User/Tháng):</strong> Giải phóng hoàn toàn áp lực chi phí license thuê bao hàng tháng khi mở rộng quy mô người dùng.</li>
+                  </ul>
+                </section>
+
+                <section id="sec-3" class="fis-article-sec">
+                  <h2>3. Khuyến nghị Lộ trình 3 Bước cho Giám đốc CNTT</h2>
+                  <p>
+                    Thay vì triển khai dàn trải, doanh nghiệp nên bắt đầu bằng đợt PoC 14 ngày trên 1 bài toán có ROI rõ nét nhất — điển hình là Trợ lý RAG tra cứu SOP quy trình nội bộ hoặc AI OCR bóc tách chứng từ kế toán — để đo lường chính xác tốc độ phản hồi và độ chính xác trước khi nhân rộng toàn hệ thống.
+                  </p>
+                </section>
+
+                <section id="sec-4" class="fis-article-sec">
+                  <h2>4. Bảng Đối chiếu Kiến trúc &amp; Tiêu chuẩn Nghiệm thu B2B</h2>
+                  <div class="fis-article-table-wrap">
+                    <table class="fis-article-table">
+                      <thead>
+                        <tr>
+                          <th>Tiêu chí Đánh giá</th>
+                          <th>Giải pháp Truyền thống / Cloud</th>
+                          <th>Kiến trúc Chuẩn hóa Navatek B2B</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong>An toàn &amp; Chủ quyền Dữ liệu</strong></td>
+                          <td>Phụ thuộc hạ tầng bên thứ 3 ngoài Internet</td>
+                          <td>100% On-Premise LAN • Tuân thủ ISO/IEC 27001</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Chi phí Vận hành 3 Năm (TCO)</strong></td>
+                          <td>Phí thuê bao tăng tuyến tính theo số lượng nhân sự</td>
+                          <td>Đầu tư CAPEX 1 lần hoặc thuê HaaS cố định trọn gói</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Cam kết Ứng cứu Phần cứng</strong></td>
+                          <td>Chờ quy trình RMA hãng từ 7–15 ngày làm việc</td>
+                          <td>Đổi máy nóng từ kho Loaner Pool trong &lt; 4 giờ</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Hồ sơ Pháp lý &amp; Nghiệm thu</strong></td>
+                          <td>Hóa đơn dịch vụ quốc tế phức tạp khi hạch toán</td>
+                          <td>Đầy đủ CO/CQ chính ngạch, Burn-in 24h &amp; VAT 100%</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+              </div>
+
+              <!-- Related Hardware Callout Card inside Article -->
+              <div id="detailRelatedHwCard" class="fis-detail-hw-card">
+                <div class="fis-detail-hw-info">
+                  <span class="fis-detail-hw-eyebrow">Cấu hình Phần cứng &amp; Giải pháp Đề xuất trong Bài</span>
+                  <h3 id="detailRelatedHwTitle" class="fis-detail-hw-title">Thiết bị Turnkey AI Box Nội bộ (Cài sẵn RAG &amp; OCR)</h3>
+                  <p id="detailRelatedHwSub" class="fis-detail-hw-sub">
+                    Hỗ trợ mượn thiết bị PoC 14 ngày tại mạng nội bộ • Đầy đủ CO/CQ &amp; SLA &lt; 4 giờ.
+                  </p>
+                </div>
+                <div class="fis-detail-hw-actions">
+                  <button
+                    type="button"
+                    id="detailInspectHwBtn"
+                    class="btn-tile-detail"
+                    data-open-hw="turnkey-ai-box"
+                  >
+                    Xem thông số kỹ thuật
+                  </button>
+                  <button
+                    type="button"
+                    id="detailConsultArticleBtn"
+                    class="header-btn-quote"
+                  >
+                    Nhận tư vấn mô hình này →
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Tags + Social Share Row (.detail__page-bottom) -->
+            <div class="fis-detail-bottom">
+              <div id="detailBottomTags" class="fis-detail-tags">
+                <a href="blog.html" class="fis-detail-tag-pill">#AI Nội bộ &amp; LLM</a>
+                <a href="blog.html" class="fis-detail-tag-pill">#Mini PC &amp; OCuLink 64Gbps</a>
+                <a href="blog.html" class="fis-detail-tag-pill">#CO/CQ &amp; SLA &lt; 4h</a>
+              </div>
+
+              <div class="fis-detail-social">
+                <span>Chia sẻ:</span>
+                <div class="fis-share-list">
+                  <a
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://navatek.vn/blog-detail.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="fis-share-btn is-fb"
+                    aria-label="Chia sẻ lên Facebook"
+                  >
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M15.12 5.32H17V2.14A26.11 26.11 0 0 0 14.26 2c-2.72 0-4.58 1.66-4.58 4.7v2.62H6.61v3.56h3.07V22h3.68v-9.12h3.06l.46-3.56h-3.52V6.65c0-1.05.29-1.73 1.76-1.33Z"/>
+                    </svg>
+                  </a>
+                  <a
+                    href="https://twitter.com/intent/tweet?url=https://navatek.vn/blog-detail.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="fis-share-btn is-tw"
+                    aria-label="Chia sẻ lên X / Twitter"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/sharing/share-offsite/?url=https://navatek.vn/blog-detail.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="fis-share-btn is-in"
+                    aria-label="Chia sẻ lên LinkedIn"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z"/>
+                    </svg>
+                  </a>
+                  <button
+                    type="button"
+                    class="fis-share-btn is-copy"
+                    data-copy-blog-link
+                    title="Sao chép liên kết bài viết"
+                    aria-label="Sao chép liên kết bài viết"
+                  >
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- RIGHT COLUMN: Author Box + Related Posts Sidebar (.detail__page-right) -->
+          <aside class="fis-detail-sidebar" aria-label="Tác giả và Tin liên quan">
+            <div class="fis-author-box">
+              <div class="fis-author-avatar" aria-hidden="true">NVT</div>
+              <div class="fis-author-meta">
+                <p class="name">Ban Công nghệ Navatek</p>
+                <p class="pos">Chuyên gia Hạ tầng AI &amp; Phần cứng B2B</p>
+              </div>
+            </div>
+
+            <div class="fis-related-box">
+              <h2 class="fis-related-heading">Tin liên quan</h2>
+              <div id="detailRelatedList" class="fis-related-list">
+                <a href="blog-detail.html?id=article-rag-ocr-erp" class="fis-related-item" data-detail-link="article-rag-ocr-erp">
+                  <div class="fis-related-thumb">
+                    <img src="images/blog-v9-rag-ocr.jpg" alt="Kiến trúc AI RAG & OCR Tiếng Việt" loading="lazy" />
+                  </div>
+                  <div class="fis-related-content">
+                    <p class="fis-related-cate">AI Nội bộ &amp; LLM <span class="date">- 24/10/2026</span></p>
+                    <h3 class="fis-related-title">Kiến trúc AI RAG &amp; OCR Tiếng Việt: Tự động hóa tra cứu SOP &amp; bóc tách chứng từ</h3>
+                  </div>
+                </a>
+
+                <a href="blog-detail.html?id=article-modular-pc" class="fis-related-item" data-detail-link="article-modular-pc">
+                  <div class="fis-related-thumb">
+                    <img src="images/blog-v7-modular-pc.jpg" alt="Mini PC và Máy trạm Mô-đun 64Gbps" loading="lazy" />
+                  </div>
+                  <div class="fis-related-content">
+                    <p class="fis-related-cate">Mini PC &amp; OCuLink <span class="date">- 19/10/2026</span></p>
+                    <h3 class="fis-related-title">Xu hướng thay thế PC thùng lớn bằng Mini PC &amp; Máy trạm Mô-đun 64Gbps</h3>
+                  </div>
+                </a>
+
+                <a href="blog-detail.html?id=article-capex-haas" class="fis-related-item" data-detail-link="article-capex-haas">
+                  <div class="fis-related-thumb">
+                    <img src="images/blog-v7-capex-haas.jpg" alt="Mua đứt CAPEX hay Thuê HaaS" loading="lazy" />
+                  </div>
+                  <div class="fis-related-content">
+                    <p class="fis-related-cate">Thuê HaaS &amp; SLA <span class="date">- 15/10/2026</span></p>
+                    <h3 class="fis-related-title">Mua đứt (CAPEX) hay Thuê hạ tầng phần cứng (HaaS): Bài toán dòng tiền cho CIO</h3>
+                  </div>
+                </a>
+
+                <a href="blog-detail.html?id=article-edge-vision-factory" class="fis-related-item" data-detail-link="article-edge-vision-factory">
+                  <div class="fis-related-thumb">
+                    <img src="images/blog-v9-edge-vision.jpg" alt="Edge AI Vision 18ms tại Nhà xưởng" loading="lazy" />
+                  </div>
+                  <div class="fis-related-content">
+                    <p class="fis-related-cate">AI Nội bộ &amp; LLM <span class="date">- 11/10/2026</span></p>
+                    <h3 class="fis-related-title">Edge AI Vision 18ms tại nhà xưởng: Giám sát dây chuyền không cần Internet</h3>
+                  </div>
+                </a>
+
+                <a href="blog-detail.html?id=article-fanless-industrial" class="fis-related-item" data-detail-link="article-fanless-industrial">
+                  <div class="fis-related-thumb">
+                    <img src="images/blog-v9-fanless-ipc.jpg" alt="PC Công nghiệp Fanless 24/7" loading="lazy" />
+                  </div>
+                  <div class="fis-related-content">
+                    <p class="fis-related-cate">Mini PC &amp; OCuLink <span class="date">- 06/10/2026</span></p>
+                    <h3 class="fis-related-title">Thiết kế PC Công nghiệp Fanless 24/7: Chống bụi mịn &amp; sốc nhiệt cho trạm điều độ</h3>
+                  </div>
+                </a>
+
+                <a href="blog-detail.html?id=article-cocq-sla-loaner" class="fis-related-item" data-detail-link="article-cocq-sla-loaner">
+                  <div class="fis-related-thumb">
+                    <img src="images/blog-v9-cocq-sla.jpg" alt="Hồ sơ CO/CQ và Máy mượn SLA < 4h" loading="lazy" />
+                  </div>
+                  <div class="fis-related-content">
+                    <p class="fis-related-cate">Thuê HaaS &amp; SLA <span class="date">- 29/09/2026</span></p>
+                    <h3 class="fis-related-title">Quản trị rủi ro mua sắm CNTT B2B: Hồ sơ CO/CQ chính ngạch &amp; máy mượn SLA &lt; 4h</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         3. FPT IS STYLE INLINE NEWSLETTER & CONSULTATION SECTION (.form__contact)
+         =================================================================== -->
+    <section id="dang-ky-nhan-tin" class="fis-contact-section" aria-label="Đăng ký nhận bản tin công nghệ">
+      <div class="container">
+        <div class="fis-contact-grid">
+          <div class="fis-contact-visual">
+            <img src="images/hw-v9-cluster-3d.jpg" alt="Trung tâm Kiến trúc Hạ tầng & AI Nội bộ Navatek" loading="lazy" />
+            <div class="fis-contact-visual-badge">
+              <div>
+                <strong>Bản tin Kiến trúc CNTT &amp; Báo giá B2B</strong>
+                <span>Tài liệu TCO, Hồ sơ mẫu CO/CQ &amp; Lịch mượn máy PoC 14 ngày</span>
+              </div>
+              <span class="tile-status-pill">Miễn phí</span>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="fis-contact-title">Đăng ký nhận thông tin</h2>
+            <p class="fis-contact-sub">
+              Đăng ký nhận thông tin để cập nhật sớm nhất những bài phân tích kiến trúc phần cứng, xu hướng AI nội bộ, sự kiện công nghệ và ấn phẩm kỹ thuật từ Navatek.
+            </p>
+
+            <form id="blogInlineForm" class="fis-inline-form">
+              <div>
+                <input
+                  type="text"
+                  id="blogSubName"
+                  class="fis-form-control"
+                  placeholder="Họ và tên *"
+                  required
+                />
+              </div>
+
+              <div class="fis-form-row-2">
+                <input
+                  type="email"
+                  id="blogSubEmail"
+                  class="fis-form-control"
+                  placeholder="Email doanh nghiệp *"
+                  required
+                />
+                <input
+                  type="tel"
+                  id="blogSubPhone"
+                  class="fis-form-control"
+                  placeholder="Số điện thoại *"
+                  required
+                />
+              </div>
+
+              <div>
+                <input
+                  type="text"
+                  id="blogSubCompany"
+                  class="fis-form-control"
+                  placeholder="Tên công ty / Tổ chức *"
+                  required
+                />
+              </div>
+
+              <div>
+                <select id="blogSubTopic" class="fis-form-control" required>
+                  <option value="" disabled selected>Chủ đề bạn quan tâm *</option>
+                  <option value="AI Nội bộ (On-Premise LLM / RAG / OCR)">AI Nội bộ (On-Premise LLM / RAG / OCR)</option>
+                  <option value="Mini PC Doanh nghiệp & Máy trạm eGPU 64Gbps">Mini PC Doanh nghiệp &amp; Máy trạm eGPU 64Gbps</option>
+                  <option value="Micro-Server 10GbE & PC Công nghiệp Fanless">Micro-Server 10GbE &amp; PC Công nghiệp Fanless</option>
+                  <option value="Thuê Phần cứng HaaS & Bảo trì SLA < 4 Giờ">Thuê Phần cứng HaaS &amp; Bảo trì SLA &lt; 4 Giờ</option>
+                </select>
+              </div>
+
+              <label class="fis-form-checkbox">
+                <input type="checkbox" checked required />
+                <span>
+                  Tôi đồng ý nhận tài liệu kỹ thuật, bảng tính TCO mẫu và thông tin giải pháp định kỳ từ Navatek theo Chính sách bảo mật dữ liệu B2B.
+                </span>
+              </label>
+
+              <div style="margin-top: 8px;">
+                <button type="submit" class="fis-btn-exchange">
+                  <span>Đăng ký ngay</span>
+                  <svg viewBox="0 0 21 21" fill="none" aria-hidden="true">
+                    <path d="M13.3476 5.9502L17.8976 10.5002L13.3476 15.0502" stroke="currentColor" stroke-width="1.6" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3.10156 10.5H17.7516" stroke="currentColor" stroke-width="1.6" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </form>
+
+            <div id="blogInlineSuccess" class="fis-inline-success">
+              <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">✓ Đăng ký nhận bản tin thành công!</h3>
+              <p id="blogInlineSuccessMsg" style="font-size: 14.5px; line-height: 1.6; opacity: 0.92;">
+                Cảm ơn Quý doanh nghiệp. Bộ Cẩm nang Kiến trúc AI Nội bộ &amp; Bảng tính TCO mẫu đã được hệ thống gửi tới email của bạn.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       FOOTER: Deep Royal-Navy (Synchronized with index.html & blog.html)
+       ===================================================================== -->
+  <footer class="fpt-navy-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="brand-logo" aria-label="Navatek Trang chủ">
+            <img src="logos/navatek-logo-light.png" alt="Navatek" class="brand-logo-img brand-logo-footer" />
+          </a>
+          <p class="footer-brand-desc">
+            Đối tác hạ tầng phần cứng CNTT chính ngạch, máy trạm AI mô-đun, dịch vụ thuê HaaS, bảo trì SLA 24/7 và giải pháp AI nội bộ doanh nghiệp.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="footer-col-title">Hạ tầng Phần cứng</h3>
+          <div class="footer-links">
+            <button type="button" data-open-hw="modular-ai-workstation">Cụm Máy trạm AI &amp; eGPU</button>
+            <button type="button" data-open-hw="office-nuc-fleet">Mini PC ASUS NUC Văn phòng</button>
+            <button type="button" data-open-hw="microserver-nas-gateway">Micro-Server &amp; NAS 10G</button>
+            <button type="button" data-open-hw="fanless-industrial-kiosk">Máy tính Công nghiệp Fanless</button>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="footer-col-title">AI &amp; Dịch vụ</h3>
+          <div class="footer-links">
+            <button type="button" data-open-hw="ai-rag-appliance">AI Tra cứu Tài liệu RAG</button>
+            <button type="button" data-open-hw="ai-ocr-appliance">AI Bóc tách Chứng từ OCR</button>
+            <button type="button" data-open-hw="haas-hardware-rental">Cho thuê Phần cứng HaaS</button>
+            <button type="button" data-open-hw="sla-maintenance-loaner">Bảo trì ESD &amp; Máy mượn SLA</button>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="footer-col-title">Liên hệ Dự án B2B</h3>
+          <div class="footer-links">
+            <a href="tel:1900636809">Hotline: 1900 636 809</a>
+            <a href="mailto:b2b@navatek.vn">Email: b2b@navatek.vn</a>
+            <span>Phòng Lab &amp; Kho SLA: TP.HCM &amp; Hà Nội</span>
+            <button type="button" class="footer-rfq-trigger" data-open-rfq="footer-link">
+              Mở Popup Nhận Báo giá →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Navatek Enterprise Solutions. Chính ngạch CO/CQ &amp; Hóa đơn VAT 100%.</span>
+        <span>ISO/IEC 27001 • ISO/IEC 20000-1 • Hỗ trợ SLA 24/7/365</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       POPUP MODAL 1 (#rfqModal): NHẬN BÁO GIÁ & TƯ VẤN HẠ TẦNG CNTT
+       ===================================================================== -->
+  <div id="rfqModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="rfqModalTitle">
+    <div class="modal-dialog modal-dialog-rfq">
+      <div class="rfq-modal-header">
+        <button type="button" id="rfqModalClose" class="modal-close-x" aria-label="Đóng cửa sổ báo giá">✕</button>
+        <span class="rfq-modal-eyebrow">Phản hồi Báo giá &amp; Kiến trúc trong 30 Phút</span>
+        <h2 id="rfqModalTitle" class="rfq-modal-title">Nhận Báo Giá Dự Án &amp; Tư Vấn Hạ Tầng CNTT</h2>
+        <p class="rfq-modal-sub">
+          Hỗ trợ mượn thiết bị PoC thực tế, chiết khấu dự án, đầy đủ CO/CQ &amp; hóa đơn VAT 100%.
+        </p>
+      </div>
+
+      <div class="rfq-modal-body">
+        <form id="rfqForm" class="rfq-form">
+          <div id="quoteCartBox" class="quote-cart-box">
+            <div class="quote-cart-head">
+              <span>Hạng mục đã chọn (<span id="quoteCartInlineCount">0</span>)</span>
+              <button type="button" id="quoteCartClear" class="quote-cart-clear">Xóa danh sách</button>
+            </div>
+            <div id="quoteCartItems" class="quote-cart-items"></div>
+          </div>
+
+          <span class="rfq-field-label">Nhu cầu trọng tâm</span>
+          <div class="rfq-chips-row">
+            <button type="button" class="chip-btn is-selected" data-chip="Báo giá Thiết bị theo Dự án">Báo giá Thiết bị theo Dự án</button>
+            <button type="button" class="chip-btn" data-chip="Đăng ký Mượn máy PoC">Đăng ký Mượn máy PoC</button>
+            <button type="button" class="chip-btn" data-chip="Giải pháp AI Nội bộ">Giải pháp AI Nội bộ</button>
+            <button type="button" class="chip-btn" data-chip="Thuê Hạ tầng HaaS / Bảo trì SLA">Thuê Hạ tầng HaaS / Bảo trì SLA</button>
+          </div>
+
+          <span class="rfq-field-label">Thông tin doanh nghiệp</span>
+          <div class="rfq-inputs-grid">
+            <input type="text" id="rfqName" class="rfq-input" placeholder="Họ tên &amp; Chức vụ *" required />
+            <input type="text" id="rfqCompany" class="rfq-input" placeholder="Tên doanh nghiệp / MST *" required />
+            <input type="tel" id="rfqPhone" class="rfq-input" placeholder="Số điện thoại / Zalo *" required />
+            <input type="email" id="rfqEmail" class="rfq-input" placeholder="Email công ty" />
+          </div>
+
+          <textarea
+            id="rfqNote"
+            class="rfq-textarea"
+            placeholder="Số lượng dự kiến, bài toán cần tư vấn hoặc nhu cầu mượn thiết bị PoC..."
+          ></textarea>
+
+          <button type="submit" class="btn-rfq-submit">
+            Gửi Yêu cầu Tư vấn &amp; Nhận Báo giá →
+          </button>
+        </form>
+
+        <div id="rfqSuccess" class="rfq-success-state">
+          <div class="rfq-success-icon">✓</div>
+          <h3 class="hw-modal-title">Đã tiếp nhận Yêu cầu Báo giá Doanh nghiệp</h3>
+          <p id="rfqSuccessMsg" class="hw-modal-desc">
+            Yêu cầu đã được chuyển tới Phòng Dự án B2B Navatek. Kỹ sư giải pháp sẽ liên hệ trong 30 phút làm việc.
+          </p>
+          <div id="rfqSelectedSummary" class="rfq-summary-pills"></div>
+          <button type="button" id="rfqResetBtn" class="btn-modal-secondary">
+            Đóng cửa sổ
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       POPUP MODAL 2 (#hwModal): CHI TIẾT GIẢI PHÁP & CHỌN QUY MÔ DỰ ÁN
+       ===================================================================== -->
+  <div id="hwModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-dialog">
+      <button type="button" id="modalCloseBtn" class="modal-close-x" aria-label="Đóng chi tiết">✕</button>
+      <div class="hw-modal-grid">
+        <div class="hw-modal-media">
+          <img id="modalImg" src="images/hw-v6-workstation.jpg" alt="Chi tiết giải pháp Navatek" />
+          <div>
+            <span class="rfq-field-label">Thông số &amp; Tiêu chuẩn bàn giao</span>
+            <div id="modalSpecs" class="hw-modal-specs"></div>
+          </div>
+        </div>
+
+        <div class="hw-modal-content">
+          <span id="modalBadge" class="hw-modal-badge">Giải pháp Hạ tầng B2B</span>
+          <h2 id="modalTitle" class="hw-modal-title">Cụm Máy trạm AI &amp; Đồ họa Mô-đun</h2>
+          <p id="modalDesc" class="hw-modal-desc"></p>
+
+          <span class="rfq-field-label">Chọn quy mô triển khai</span>
+          <div id="modalTierGrid" class="modal-tier-grid"></div>
+
+          <ul id="modalHighlights" class="hw-modal-highlights"></ul>
+
+          <div class="hw-modal-actions">
+            <button type="button" id="modalAddCartBtn" class="btn-modal-secondary">
+              + Lưu vào danh sách báo giá
+            </button>
+            <button type="button" id="modalQuoteNowBtn" class="btn-modal-primary">
+              Nhận báo giá hạng mục này →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Smooth Back-to-Top Button with SVG Scroll Progress Ring -->
+  <button type="button" id="scrollTopFab" class="scroll-top-fab" aria-label="Cuộn lên đầu trang">
+    <svg class="scroll-top-ring" width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">
+      <circle class="ring-bg" cx="22" cy="22" r="19" fill="none" stroke-width="2.2" />
+      <circle id="scrollTopRingProg" class="ring-prog" cx="22" cy="22" r="19" fill="none" stroke-width="2.2" />
+    </svg>
+    <svg class="scroll-top-arrow" width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M10 15V5M10 5L5.5 9.5M10 5L14.5 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+
+  <script src="js/main.js?v=20261103-mega1"></script>
+</body>
+</html>
